@@ -6,8 +6,8 @@ const BadRequestError = require('../errors/bad-request-err');
 module.exports.getArticles = (req, res, next) => {
   const myId = req.user._id;
 
-  Article.find({owner: myId})
-  .then((articles) => res.status(200).contentType('JSON').send(articles))
+  Article.find({ owner: myId })
+    .then((articles) => res.status(200).contentType('JSON').send(articles))
     .catch(() => {
       throw new BadRequestError('Произошла ошибка');
     })
@@ -16,10 +16,16 @@ module.exports.getArticles = (req, res, next) => {
 
 module.exports.createArticles = (req, res, next) => {
   const owner = req.user._id;
-  const { keyword, title, text, date, source, link, image } = req.body;
+  const {
+    keyword, title, text, date, source, link, image,
+  } = req.body;
 
-  Article.create({ keyword, title, text, date, source, link, image, owner })
-    .then(() => res.status(200).contentType('JSON').send({ keyword, title, text, date, source, link, image }))
+  Article.create({
+    keyword, title, text, date, source, link, image, owner,
+  })
+    .then(() => res.status(200).contentType('JSON').send({
+      keyword, title, text, date, source, link, image,
+    }))
     .catch(() => {
       throw new BadRequestError('Произошла ошибка');
     })
@@ -31,10 +37,8 @@ module.exports.deleteArticle = (req, res, next) => {
   const { articleId } = req.params;
 
   Article.findById(articleId).select('owner')
-    // eslint-disable-next-line consistent-return
 
     .then((article) => {
-
       const owner = article.owner._id.toString();
 
       if (owner !== myId) {
@@ -43,7 +47,7 @@ module.exports.deleteArticle = (req, res, next) => {
 
       Article.findByIdAndDelete(articleId)
         .orFail()
-        .then((article) => res.status(200).contentType('JSON').send({ data: article }))
+        .then((deletedArticle) => res.status(200).contentType('JSON').send({ data: deletedArticle }))
         .catch(() => {
           throw new NotFoundError('Ресурс не найден');
         })

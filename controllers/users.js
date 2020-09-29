@@ -41,7 +41,7 @@ module.exports.getUsersMe = (req, res, next) => {
 
       res.status(200);
       res.contentType('JSON');
-      res.send({email, name});
+      res.send({ email, name });
     })
     .catch(next);
 };
