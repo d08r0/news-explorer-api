@@ -46,6 +46,10 @@ const keywordSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-});
+},
+{
+  versionKey: false
+}
+);
 
 module.exports = mongoose.model('article', keywordSchema);
