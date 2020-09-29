@@ -37,21 +37,16 @@ module.exports.deleteArticle = (req, res, next) => {
   const { articleId } = req.params;
 
   Article.findById(articleId).select('owner')
-
+    .orFail(() => new NotFoundError('Нет такой карточки'))
     .then((article) => {
       const owner = article.owner._id.toString();
 
       if (owner !== myId) {
         throw new ForbiddenError('У вас недостаточно прав');
+      } else {
+        Article.findByIdAndDelete(articleId)
+          .then((deletedArticle) => res.status(200).contentType('JSON').send({ data: deletedArticle }));
       }
-
-      Article.findByIdAndDelete(articleId)
-        .orFail()
-        .then((deletedArticle) => res.status(200).contentType('JSON').send({ data: deletedArticle }))
-        .catch(() => {
-          throw new NotFoundError('Ресурс не найден');
-        })
-        .catch(next);
     })
     .catch(next);
 };
