@@ -4,12 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const { celebrate, Joi } = require('celebrate');
-const usersRouter = require('./routes/users.js');
-const articlesRouter = require('./routes/articles');
-const auth = require('./middlewares/auth.js');
+const router = require('./routes/index');
 const NotFoundError = require('./errors/not-found-err');
-const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 console.log(process.env.NODE_ENV);
@@ -36,17 +32,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', login);
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required(),
-    password: Joi.string().required().regex(/[0-9a-zA-Z!@#$%^&*]{8,}/),
-    name: Joi.string().required().min(2).max(30),
-  }).unknown(true),
-}), createUser);
-
-app.use('/', auth, usersRouter);
-app.use('/', auth, articlesRouter);
+app.use('/', router);
 
 app.use(errorLogger);
 
