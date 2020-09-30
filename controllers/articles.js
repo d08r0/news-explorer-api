@@ -2,6 +2,7 @@ const Article = require('../models/article');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
 const BadRequestError = require('../errors/bad-request-err');
+const { Messages } = require('../errors/messages');
 
 module.exports.getArticles = (req, res, next) => {
   const myId = req.user._id;
@@ -9,7 +10,7 @@ module.exports.getArticles = (req, res, next) => {
   Article.find({ owner: myId })
     .then((articles) => res.status(200).contentType('JSON').send(articles))
     .catch(() => {
-      throw new BadRequestError('Произошла ошибка');
+      throw new BadRequestError(Messages.BAD_REQUEST_ERROR);
     })
     .catch(next);
 };
@@ -23,11 +24,11 @@ module.exports.createArticles = (req, res, next) => {
   Article.create({
     keyword, title, text, date, source, link, image, owner,
   })
-    .then(() => res.status(200).contentType('JSON').send({
+    .then(() => res.status(201).contentType('JSON').send({
       keyword, title, text, date, source, link, image,
     }))
     .catch(() => {
-      throw new BadRequestError('Произошла ошибка');
+      throw new BadRequestError(Messages.BAD_REQUEST_ERROR);
     })
     .catch(next);
 };
@@ -37,7 +38,7 @@ module.exports.deleteArticle = (req, res, next) => {
   const { articleId } = req.params;
 
   Article.findById(articleId).select('owner')
-    .orFail(() => new NotFoundError('Нет такой карточки'))
+    .orFail(() => new NotFoundError(Messages.NOT_ARTICLE_ERROR))
     .then((article) => {
       const owner = article.owner._id.toString();
 

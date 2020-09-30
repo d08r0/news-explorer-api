@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const BadRequestError = require('../errors/bad-request-err');
 const ConflictError = require('../errors/conflict-err');
+const { Messages } = require('../errors/messages');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -22,10 +23,10 @@ module.exports.createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.code === 11000) {
-        throw new ConflictError('Пароль занят');
+        throw new ConflictError(Messages.CONFLICT_EMAIL_ERROR);
       }
 
-      throw new BadRequestError('Произошла ошибка');
+      throw new BadRequestError(Messages.BAD_REQUEST_ERROR);
     })
     .catch(next);
 };
