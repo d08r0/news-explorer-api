@@ -7,6 +7,7 @@ const { errors } = require('celebrate');
 const router = require('./routes/index');
 const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { Messages } = require('./errors/messages');
 
 console.log(process.env.NODE_ENV);
 
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+mongoose.connect('mongodb://localhost:27017/news-explorer-bd', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -50,7 +51,7 @@ app.use((err, req, res, next) => {
     .status(statusCode)
     .send({
       message: statusCode === 500
-        ? 'На сервере произошла ошибка'
+        ? Messages.INTERNAL_SERVER_ERROR
         : message,
     });
 });

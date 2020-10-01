@@ -1,6 +1,6 @@
-const router = require('express').Router()
-const auth = require('../middlewares/auth.js');
+const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
+const auth = require('../middlewares/auth.js');
 const { createUser, login } = require('../controllers/users');
 
 const articlesRouter = require('./articles');
@@ -15,7 +15,7 @@ router.post('/signup', celebrate({
   }).unknown(true),
 }), createUser);
 
-router.use('/', auth,  usersRouter);
+router.use('/', auth, usersRouter);
 router.use('/', auth, articlesRouter);
 
 module.exports = router;
