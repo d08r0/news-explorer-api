@@ -24,9 +24,10 @@ module.exports.createArticles = (req, res, next) => {
   Article.create({
     keyword, title, text, date, source, link, image, owner,
   })
-    .then(() => res.status(201).contentType('JSON').send({
-      keyword, title, text, date, source, link, image,
-    }))
+    // .then(() => res.status(201).contentType('JSON').send({
+    //       keyword, title, text, date, source, link, image,
+    //     }))
+    .then((data) => res.status(201).contentType('JSON').send(data))
     .catch(() => {
       throw new BadRequestError(Messages.BAD_REQUEST_ERROR);
     })

@@ -9,13 +9,13 @@ const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { Messages } = require('./errors/messages');
 
-// const cors = require('cors');
-//
-// const corsOptions = {
-//   origin: 'http://localhost:8080',
-//   optionsSuccessStatus: 200,
-//   credentials: true
-// }
+const cors = require('cors');
+
+const corsOptions = {
+  origin: 'https://api.my-news-explorer.tk',
+  optionsSuccessStatus: 200,
+  credentials: true
+}
 
 console.log(process.env.NODE_ENV);
 
@@ -41,7 +41,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use('/', router);
 
