@@ -9,10 +9,16 @@ const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { Messages } = require('./errors/messages');
 
-// const cors = require('cors');
-//
+const cors = require('cors');
+
+const corsOptions = {
+  origin: 'https://my-news-explorer.tk',
+  credentials: true
+};
+
+
 // const corsOptions = {
-//   origin: 'https://my-news-explorer.tk',
+//   origin: true,
 //   credentials: true
 // };
 
