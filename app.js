@@ -41,7 +41,9 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.use('*', cors(corsOptions));
 
 app.use('/', router);
 
