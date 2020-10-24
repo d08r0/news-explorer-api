@@ -14,8 +14,9 @@ const cors = require('cors');
 const corsOptions = {
   origin: 'https://api.my-news-explorer.tk',
   optionsSuccessStatus: 200,
-  credentials: true
-}
+  credentials: true,
+  method: ['GET', 'POST', 'POST', 'OPTIONS'],
+};
 
 console.log(process.env.NODE_ENV);
 
