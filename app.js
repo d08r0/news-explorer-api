@@ -11,11 +11,22 @@ const { Messages } = require('./errors/messages');
 
 const cors = require('cors');
 
-const corsOptions = {
-  origin: ['https://my-news-explorer.tk', 'http://my-news-explorer.tk', 'my-news-explorer.tk'],
-  credentials: true,
-  method: ['GET', 'POST', 'POST', 'OPTIONS'],
-};
+// const corsOptions = {
+//   origin: ['https://my-news-explorer.tk', 'http://my-news-explorer.tk', 'my-news-explorer.tk'],
+//   credentials: true,
+//   method: ['GET', 'POST', 'POST', 'OPTIONS'],
+// };
+
+// const whitelist = ['http://example1.com', 'http://example2.com']
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
 
 console.log(process.env.NODE_ENV);
 
@@ -43,7 +54,7 @@ app.get('/crash-test', () => {
 
 // app.use(cors(corsOptions));
 
-app.use('*', cors(corsOptions));
+app.use(cors());
 
 app.use('/', router);
 
