@@ -11,14 +11,14 @@ const { Messages } = require('./errors/messages');
 
 const cors = require('cors');
 
-const corsOptions = {
-  origin: 'https://my-news-explorer.tk',
-  credentials: true
-};
+// const corsOptions = {
+//   origin: 'https://my-news-explorer.tk',
+//   credentials: true
+// };
 
 
 // const corsOptions = {
-//   origin: true,
+//   origin: 'http://localhost:8080',
 //   credentials: true
 // };
 
@@ -46,9 +46,9 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
-// app.use(cors());
+app.use(cors());
 
 app.use('/', router);
 
