@@ -9,7 +9,7 @@ const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { Messages } = require('./errors/messages');
 
-const cors = require('cors');
+// const cors = require('cors');
 
 // const corsOptions = {
 //   origin: 'http://localhost:8080',
@@ -21,11 +21,11 @@ console.log(process.env.NODE_ENV);
 const { PORT = 3000 } = process.env;
 const app = express();
 
-const corsOptions = {
-  origin: ['https://my-news-explorer.tk', 'http://my-news-explorer.tk', 'http://localhost:8080'],
-  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
-  credentials: true
-};
+// const corsOptions = {
+//   origin: ['https://my-news-explorer.tk', 'http://my-news-explorer.tk', 'http://localhost:8080'],
+//   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+//   credentials: true
+// };
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,7 +46,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 app.use('/', router);
 
