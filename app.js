@@ -11,18 +11,18 @@ const { Messages } = require('./errors/messages');
 
 const cors = require('cors');
 
-const corsOptions = {
-  origin: true,
-  methods: ["POST"],
-  credentials: true,
-  maxAge: 3600
-}
-
 // const corsOptions = {
-//   origin: ['https://my-news-explorer.tk', 'http://my-news-explorer.tk', 'my-news-explorer.tk'],
+//   origin: true,
+//   methods: ["POST"],
 //   credentials: true,
-//   method: ['GET', 'POST', 'POST', 'OPTIONS'],
-// };
+//   maxAge: 3600
+// }
+
+const corsOptions = {
+  origin: ['https://my-news-explorer.tk', 'http://my-news-explorer.tk', 'my-news-explorer.tk'],
+  credentials: true,
+  method: ['GET', 'POST', 'POST', 'OPTIONS'],
+};
 
 // const whitelist = ['http://example1.com', 'http://example2.com']
 // const corsOptions = {
