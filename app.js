@@ -12,8 +12,8 @@ const { Messages } = require('./errors/messages');
 const cors = require('cors');
 
 const corsOptions = {
-  origin: ['https://api.my-news-explorer.tk', '*'],
-  optionsSuccessStatus: 200,
+  origin: ['https://api.my-news-explorer.tk', 'http://localhost:8080'],
+  // optionsSuccessStatus: 200,
   credentials: true,
   method: ['GET', 'POST', 'POST', 'OPTIONS'],
 };
