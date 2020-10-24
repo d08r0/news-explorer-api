@@ -45,11 +45,11 @@ app.use(cors(corsOptions));
 
 app.use('/', router);
 
-app.use(errorLogger);
-
 app.use(() => {
   throw new NotFoundError('Ресурс не найден');
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
